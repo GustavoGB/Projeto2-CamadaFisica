@@ -25,7 +25,7 @@ Segundo a tabela de frequências presente abaixo, é possível identificar a ger
  
 O que é timbre?
 
-Embora esta característica seja conhecida há séculos, só com o surgimento da electrónica é que foi possível compreender o timbre com mais exactidão.
+Embora esta característica seja conhecida há séculos, só com o surgimento da electrónica é que foi possível compreender o timbre com mais exatidão.
 
 O lá central produzido por um piano tem uma frequência de 440 Hz, a mesma nota produzida por um violino possui a mesma frequência. O que dificulta diferenciar os dois sons e a fonte sonora é a forma da onda ou a envoltória sonora.
 
