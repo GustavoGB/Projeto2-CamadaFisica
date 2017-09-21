@@ -16,16 +16,16 @@ Segundo a tabela de frequências presente abaixo, é possível identificar a ger
 
 # Tons gerados
 
-![TECLA0](Tom-gerado0.png)
-![TECLA1](Tom-gerado1.png)
-![TECLA2](Tom-gerado2.png)
-![TECLA3](Tom-gerado3.png)
-![TECLA4](Tom-gerado4.png)
-![TECLA5](Tom-gerado5.png)
-![TECLA6](Tom-gerado6.png)
-![TECLA7](Tom-gerado7.png)
-![TECLA8](Tom-gerado8.png)
-![TECLA9](Tom-gerado9.png)
+![TECLA0](testes-tons/Tom-gerado0.png)
+![TECLA1](testes-tons/Tom-gerado1.png)
+![TECLA2](testes-tons/Tom-gerado2.png)
+![TECLA3](testes-tons/Tom-gerado3.png)
+![TECLA4](testes-tons/Tom-gerado4.png)
+![TECLA5](testes-tons/Tom-gerado5.png)
+![TECLA6](testes-tons/Tom-gerado6.png)
+![TECLA7](testes-tons/Tom-gerado7.png)
+![TECLA8](testes-tons/Tom-gerado8.png)
+![TECLA9](testes-tons/Tom-gerado9.png)
 
 
  
