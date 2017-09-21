@@ -2,6 +2,8 @@ import numpy as np
 from matplotlib import animation 
 import sounddevice as sd
 import matplotlib.pyplot as plt
+import soundfile as sf
+import time as tm
 
 
 
@@ -15,21 +17,27 @@ plt.xlabel('Tempo')
 plt.ylabel('Onda')
 plt.axis = ([0,1000,-1000,1000])
 
+sd.default.samplerate = fs
+sd.default.channels = 1
+arquivo_audio = "./audio/recebido"
 
+def generateFilePath(fileName, counter):
+    return fileName + str(counter) + ".wav"
+
+def record_to_file(file, data, fs):
+    sf.write(file, data, fs)
 
 def soundDecoder(i):
     time=1
     tempo=np.linspace(0, time, fs*time)
-    x = tempo
-
     audio = sd.rec(int(duration*fs), fs, channels=1)
     sd.wait()
 
     y = audio[:,0]
-
+    record_to_file(generateFilePath(arquivo_audio, 1), y, fs)
     eixoX1.clear()
-    plt.xlim(0,0.015)
-    eixoX1.plot(x[0:1000], y[0:1000])
+    plt.xlim(0.01,0.02)
+    eixoX1.plot(tempo[0:1000000], y[0:1000000])
     
 
 
