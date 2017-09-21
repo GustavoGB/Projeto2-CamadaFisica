@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 fs = 44100
-t=1
+t=5
 
 def som(list):
     f1 = list[0]
@@ -23,7 +23,7 @@ def som(list):
     plt.plot(time, y)
     plt.xlim(0,0.015)
     plt.xlabel('tempo')
-    plt.ylabel('onda')
+    plt.ylabel('Onda')
     sd.play(y, fs)
     sd.wait()
     plt.show()

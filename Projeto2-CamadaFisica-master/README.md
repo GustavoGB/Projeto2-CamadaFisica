@@ -14,24 +14,33 @@ Segundo a tabela de frequências presente abaixo, é possível identificar a ger
 
 # Descrição dos tons -comparação da onda real e da recebida
 
+# Tons gerados
 
-
-
+![TECLA0](Tom-gerado0.png)
+![TECLA1](Tom-gerado1.png)
+![TECLA2](Tom-gerado2.png)
+![TECLA3](Tom-gerado3.png)
+![TECLA4](Tom-gerado4.png)
+![TECLA5](Tom-gerado5.png)
+![TECLA6](Tom-gerado6.png)
+![TECLA7](Tom-gerado7.png)
+![TECLA8](Tom-gerado8.png)
+![TECLA9](Tom-gerado9.png)
 
 
  
  
 # Como sons diferem se possuem a mesma frequência? TIMBRE!!
  
-O que é timbre?
+## O que é timbre?
 
-Embora esta característica seja conhecida há séculos, só com o surgimento da electrónica é que foi possível compreender o timbre com mais exactidão.
+Embora esta característica seja conhecida há séculos, só com o surgimento da electrónica é que foi possível compreender o timbre com mais exatidão.
 
 O lá central produzido por um piano tem uma frequência de 440 Hz, a mesma nota produzida por um violino possui a mesma frequência. O que dificulta diferenciar os dois sons e a fonte sonora é a forma da onda ou a envoltória sonora.
 
 :sparkles:
 
-Forma de onda
+## Forma de onda:
 
 Quando um instrumento musical é capaz de produzir sons, entra em vibração, uma série de ondas sinusoidais são emitidas. Além da frequência fundamental que define a nota, várias frequências harmónicas (ondas com frequências componentes dos sinais que são um múltiplo inteiro da frequência fundamental) também são emitidas. Qualquer objeto em vibração emite frequências harmónicas que soam à nota fundamental, porém o ouvido humano não é capaz de ouvir harmónicos com frequências superiores a 20000 Hz.
 
@@ -55,4 +64,4 @@ Devido às características de cada instrumento, alguns harmónicos menores e au
 
 
 
-referências : https://anasoares1.wordpress.com/2011/01/31/som-e-caracteristicas-do-som-frequencia-amplitude-e-timbre/
+Referências : https://anasoares1.wordpress.com/2011/01/31/som-e-caracteristicas-do-som-frequencia-amplitude-e-timbre/
