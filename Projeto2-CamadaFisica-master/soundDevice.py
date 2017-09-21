@@ -12,7 +12,7 @@ duration = 1
 figura = plt.figure()
 eixoX1 = figura.add_subplot(1,1,1)
 plt.xlabel('Tempo')
-plt.ylabel('Frequência')
+plt.ylabel('Onda')
 plt.axis = ([0,1000,-1000,1000])
 
 

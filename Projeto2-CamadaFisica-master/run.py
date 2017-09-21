@@ -27,7 +27,7 @@ while True:
     if num == 2:
         setSound.som(frequencia.two)
     if num == 3:
-        setSound.som(frequencia.tree)
+        setSound.som(frequencia.three)
     if num == 4:
         setSound.som(frequencia.four)
     if num == 5:
