@@ -14,9 +14,18 @@ Segundo a tabela de frequências presente abaixo, é possível identificar a ger
 
 # Descrição dos tons -comparação da onda real e da recebida
 
+# Tons gerados
 
-
-
+![TECLA0](Tom-gerado0.png)
+![TECLA1](Tom-gerado1.png)
+![TECLA2](Tom-gerado2.png)
+![TECLA3](Tom-gerado3.png)
+![TECLA4](Tom-gerado4.png)
+![TECLA5](Tom-gerado5.png)
+![TECLA6](Tom-gerado6.png)
+![TECLA7](Tom-gerado7.png)
+![TECLA8](Tom-gerado8.png)
+![TECLA9](Tom-gerado9.png)
 
 
  
