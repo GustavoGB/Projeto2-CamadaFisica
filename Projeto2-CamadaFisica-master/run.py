@@ -42,3 +42,4 @@ while True:
         setSound.som(frequencia.nine)
     if num == 0:
         setSound.som(frequencia.zero)
+   
