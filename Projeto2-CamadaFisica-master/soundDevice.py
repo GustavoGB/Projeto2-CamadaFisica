@@ -1,14 +1,13 @@
 import numpy as np
-from matplotlib import animation 
 import sounddevice as sd
 import matplotlib.pyplot as plt
 import soundfile as sf
 import time as tm
-from scipy.fftpack import fft
-from scipy import signal as window
 import math
 import peakutils
-
+from scipy.fftpack import fft
+from scipy import signal as window
+from matplotlib import animation 
 
 
 fs = 44100
@@ -33,7 +32,6 @@ def soundDecoder(i):
     tempo=np.linspace(0, time, fs*time)
     audio = sd.rec(int(duration*fs), fs, channels=1)
     sd.wait()
-
     y = audio[:,0]
     record_to_file(generateFilePath(arquivo_audio, 1), y, fs)
     ff = ouveAudio(y)
@@ -44,7 +42,6 @@ def soundDecoder(i):
         eixoX1.clear()
         plt.xlim(0.01,0.02)
         eixoX1.plot(tempo[0:1000000], y[0:1000000])
-        # plt.close("all")
         ax1 = figura.add_subplot(1,2,2)
         ax1.set_xlabel('Frequencia')
         ax1.set_ylabel('Decibel')
@@ -62,58 +59,43 @@ def fourier(sinal, fs):
             return(xf, yf[0:N//2])
         else:
             return 0,0
-  
+
 def ouveAudio(y):
     if arquivo == 0:
         fs=44100
         X, Y = fourier(y, fs)
 
         if Y.any() != 0:
-
-            ymax = 20000
-            new_y =[]
-            for y in Y:
-                new_y.append(10*math.log(np.abs(y)/ymax))
-
-            array_y = np.array(new_y)
-
-            indexes = peakutils.indexes(array_y, thres=0.86, min_dist=0)
-            peaks_list = []
-            for e in indexes:
-                peaks_list.append(e)
-                
-            max1 = max(peaks_list)
-            peaks_list.remove(max1)
-            max2 = max(peaks_list)
-            return(max2, max1, X, new_y)
+            return processaSom(Y,X)
         else:
             return 0
+        
     else:
         y, fs = sf.read(arquivo.rstrip())
         X, Y = fourier(y, fs)
 
         if Y.any() != 0:
-            print("opa1")
-
-            ymax = 20000
-            new_y =[]
-            for y in Y:
-                new_y.append(10*math.log(np.abs(y)/ymax))
-
-            array_y = np.array(new_y)
-
-            indexes = peakutils.indexes(array_y, thres=0.86, min_dist=0)
-            peaks_list = []
-            for e in indexes:
-                peaks_list.append(e)
-                
-            max1 = max(peaks_list)
-            peaks_list.remove(max1)
-            max2 = max(peaks_list)
-            return(max2, max1, X, new_y)
+            return processaSom(Y,X)
         else:
             return 0
 
+def processaSom(Y,X):
+    ymax = 20000
+    new_y =[]
+    for y in Y:
+        new_y.append(10*math.log(np.abs(y)/ymax))
+
+    array_y = np.array(new_y)
+
+    indexes = peakutils.indexes(array_y, thres=0.86, min_dist=0)
+    peaks_list = []
+    for e in indexes:
+        peaks_list.append(e)
+        
+    max1 = max(peaks_list)
+    peaks_list.remove(max1)
+    max2 = max(peaks_list)
+    return(max2, max1, X, new_y)
 
 def tom(f1, f2):
     f1real = np.linspace(f1-10,f1+10,21)
@@ -157,8 +139,6 @@ if modo == 2:
 
 
 decoder = animation.FuncAnimation(figura, soundDecoder, interval=1000)
-    
-
 
 plt.show()
 
