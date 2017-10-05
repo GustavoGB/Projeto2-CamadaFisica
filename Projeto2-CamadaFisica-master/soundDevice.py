@@ -4,6 +4,10 @@ import sounddevice as sd
 import matplotlib.pyplot as plt
 import soundfile as sf
 import time as tm
+from scipy.fftpack import fft
+from scipy import signal as window
+import math
+import peakutils
 
 
 
@@ -11,11 +15,15 @@ fs = 44100
 duration = 1
 
 
-figura = plt.figure()
+# figura = plt.figure()
+# eixoX1 = figura.add_subplot(1,1,1)
+# plt.xlabel('Tempo')
+# plt.ylabel('Onda')
+# plt.axis = ([0,1000,-1000,1000])
+
+figura = plt.figure(figsize = (10,4), facecolor="w")
+figura.canvas.set_window_title("Grafico")
 eixoX1 = figura.add_subplot(1,1,1)
-plt.xlabel('Tempo')
-plt.ylabel('Onda')
-plt.axis = ([0,1000,-1000,1000])
 
 sd.default.samplerate = fs
 sd.default.channels = 1
@@ -35,10 +43,90 @@ def soundDecoder(i):
 
     y = audio[:,0]
     record_to_file(generateFilePath(arquivo_audio, 1), y, fs)
-    eixoX1.clear()
-    plt.xlim(0.01,0.02)
-    eixoX1.plot(tempo[0:1000000], y[0:1000000])
-    
+    ff = ouveAudio(y)
+    if ff != 0:
+        a0 = str(ff[0])
+        a1 = str(ff[1])
+        b = achaTom(ff[0], ff[1])
+        eixoX1.clear()
+        plt.xlim(0.01,0.02)
+        eixoX1.plot(tempo[0:1000000], y[0:1000000])
+        # plt.close("all")
+        ax1 = figura.add_subplot(1,2,2)
+        ax1.set_xlabel('Frequencia')
+        ax1.set_ylabel('Decibel')
+        ax1.plot(ff[2],ff[3])
+        print("frequencias: {0} Hz, {1}Hz".format(a0,a1))
+        print("tom: {}".format(b))
+        print("-----------------------------------------")
+
+def fourier(sinal, fs):
+        N  = len(sinal)
+        T  = 1/fs
+        if T != 0:
+            print("opa")
+            xf = np.linspace(0.0, 1.0/(2.0*T), N//2)
+            yf = fft(sinal)
+            return(xf, yf[0:N//2])
+        else:
+            return 0,0
+  
+def ouveAudio(y):
+    X, Y = fourier(y, fs)
+
+    if Y.any() != 0:
+        print("opa1")
+
+        ymax = 20000
+        new_y =[]
+        for y in Y:
+            new_y.append(10*math.log(np.abs(y)/ymax))
+
+        array_y = np.array(new_y)
+
+        indexes = peakutils.indexes(array_y, thres=0.86, min_dist=0)
+        peaks_list = []
+        for e in indexes:
+            peaks_list.append(e)
+            
+        max1 = max(peaks_list)
+        peaks_list.remove(max1)
+        max2 = max(peaks_list)
+        return(max2, max1, X, new_y)
+    else:
+        return 0
+
+def achaTom(f1, f2):
+    f1real = np.linspace(f1-10,f1+10,21)
+    f2real = np.linspace(f2-10,f2+10,21)
+    if 697 in f1real:
+        if 1209 in f2real:
+            return "1"
+        elif 1336 in f2real:
+            return "2"
+        elif 1477 in f2real:
+            return "3"
+
+    elif 770 in f1real:
+        if 1209 in f2real:
+            return "4"
+        elif 1336 in f2real:
+            return "5"
+        elif 1477 in f2real:
+            return "6"
+
+    elif 852 in f1real:
+        if 1209 in f2real:
+            return "7"
+        elif 1336 in f2real:
+            return "8"
+        elif 1477 in f2real:
+            return "9"
+
+    elif 941 in f1real:
+        return "0"
+    else:
+        return "Opa deu ruim"
 
 
 decoder = animation.FuncAnimation(figura, soundDecoder, interval=1000)
