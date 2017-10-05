@@ -14,13 +14,6 @@ import peakutils
 fs = 44100
 duration = 1
 
-
-# figura = plt.figure()
-# eixoX1 = figura.add_subplot(1,1,1)
-# plt.xlabel('Tempo')
-# plt.ylabel('Onda')
-# plt.axis = ([0,1000,-1000,1000])
-
 figura = plt.figure(figsize = (10,4), facecolor="w")
 figura.canvas.set_window_title("Grafico")
 eixoX1 = figura.add_subplot(1,1,1)
@@ -47,7 +40,7 @@ def soundDecoder(i):
     if ff != 0:
         a0 = str(ff[0])
         a1 = str(ff[1])
-        b = achaTom(ff[0], ff[1])
+        b = tom(ff[0], ff[1])
         eixoX1.clear()
         plt.xlim(0.01,0.02)
         eixoX1.plot(tempo[0:1000000], y[0:1000000])
@@ -64,7 +57,6 @@ def fourier(sinal, fs):
         N  = len(sinal)
         T  = 1/fs
         if T != 0:
-            print("opa")
             xf = np.linspace(0.0, 1.0/(2.0*T), N//2)
             yf = fft(sinal)
             return(xf, yf[0:N//2])
@@ -72,31 +64,58 @@ def fourier(sinal, fs):
             return 0,0
   
 def ouveAudio(y):
-    X, Y = fourier(y, fs)
+    if arquivo == 0:
+        fs=44100
+        X, Y = fourier(y, fs)
 
-    if Y.any() != 0:
-        print("opa1")
+        if Y.any() != 0:
 
-        ymax = 20000
-        new_y =[]
-        for y in Y:
-            new_y.append(10*math.log(np.abs(y)/ymax))
+            ymax = 20000
+            new_y =[]
+            for y in Y:
+                new_y.append(10*math.log(np.abs(y)/ymax))
 
-        array_y = np.array(new_y)
+            array_y = np.array(new_y)
 
-        indexes = peakutils.indexes(array_y, thres=0.86, min_dist=0)
-        peaks_list = []
-        for e in indexes:
-            peaks_list.append(e)
-            
-        max1 = max(peaks_list)
-        peaks_list.remove(max1)
-        max2 = max(peaks_list)
-        return(max2, max1, X, new_y)
+            indexes = peakutils.indexes(array_y, thres=0.86, min_dist=0)
+            peaks_list = []
+            for e in indexes:
+                peaks_list.append(e)
+                
+            max1 = max(peaks_list)
+            peaks_list.remove(max1)
+            max2 = max(peaks_list)
+            return(max2, max1, X, new_y)
+        else:
+            return 0
     else:
-        return 0
+        y, fs = sf.read(arquivo.rstrip())
+        X, Y = fourier(y, fs)
 
-def achaTom(f1, f2):
+        if Y.any() != 0:
+            print("opa1")
+
+            ymax = 20000
+            new_y =[]
+            for y in Y:
+                new_y.append(10*math.log(np.abs(y)/ymax))
+
+            array_y = np.array(new_y)
+
+            indexes = peakutils.indexes(array_y, thres=0.86, min_dist=0)
+            peaks_list = []
+            for e in indexes:
+                peaks_list.append(e)
+                
+            max1 = max(peaks_list)
+            peaks_list.remove(max1)
+            max2 = max(peaks_list)
+            return(max2, max1, X, new_y)
+        else:
+            return 0
+
+
+def tom(f1, f2):
     f1real = np.linspace(f1-10,f1+10,21)
     f2real = np.linspace(f2-10,f2+10,21)
     if 697 in f1real:
@@ -127,6 +146,14 @@ def achaTom(f1, f2):
         return "0"
     else:
         return "Opa deu ruim"
+
+print("Escolha modo: 1 - Ouvir 2 - Arquivo")
+modo = int(input(""))
+if modo == 1:
+    arquivo = 0
+if modo == 2:
+    print ("Diretorio do arquivo (arraste pro terminal): ")
+    arquivo = input("")
 
 
 decoder = animation.FuncAnimation(figura, soundDecoder, interval=1000)
