@@ -1,6 +1,26 @@
 # Proj-5-DTMF
 Projeto 5 Camada Física - 2017.2 // 2 parte. 
 
+# Decoder de frequências
+
+Os resultados mostrados a seguir mostram os testes feitos a partir do aúdio de um celular e um computador. Eles mostram que, a partir das 2 bases de frequência específicas, é possível identificar qual é o tom, variando de 1 a 9.
+
+![](tons-funcionando-Fourier/tom1funcionando.png)
+![](tons-funcionando-Fourier/tom2funcionandoF.png)   
+![](tons-funcionando-Fourier/tom3funcionandoF.png)   
+![](tons-funcionando-Fourier/tom4funionando.png)   
+![](tons-funcionando-Fourier/tom5funionando.png)   
+![](tons-funcionando-Fourier/tom6funcionando.png) 
+![](tons-funcionando-Fourier/tom7funcionando.png)   
+![](tons-funcionando-Fourier/tom8funcionando.png)  
+![](tons-funcionando-Fourier/tom9funcionando.png)
+![](tons-funcionando-Fourier/tom0funcionando.png) 
+
+
+
+
+
+
 
 # Descrição da geração de frequências sonoras 
 
