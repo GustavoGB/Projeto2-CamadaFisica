@@ -48,7 +48,7 @@ plt.show()
 
 #Portadora:
 
-fC1 = 6000
+fC1 = 5000
 fC2 = 15000
 
 t = np.linspace(0, len(y)/fs, len(y))

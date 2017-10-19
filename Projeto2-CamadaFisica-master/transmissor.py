@@ -53,11 +53,11 @@ plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 plt.show()
 
 #Freq arbritarias
-fc1 = 10000
-fc2 = 20000
+fC1 = 5000
+fC2 = 15000
 
-t1, c1 = senoide(fc1,m1_filtered,rate1)
-t2, c2 = senoide(fc2,m2_filtered,rate2)
+t1, c1 = senoide(fC1,m1_filtered,rate1)
+t2, c2 = senoide(fC2,m2_filtered,rate2)
 
 # Fourrier c1 e c2 + plot
 c1f, Y1c = fourier(c1, rate1)
