@@ -52,7 +52,7 @@ from transmissor import Transmissor
         plt.show()
 
         # Faz um filtro passa baixa e reproduz os sons recuperados
-        transmissor.play(transmissor.LPF(dAM1,3000,self.fs))
-        transmissor.play(transmissor.LPF(dAM2,3000,self.fs))
+        transmissor.play(transmissor.LPF(dAM1,3000,fs))
+        transmissor.play(transmissor.LPF(dAM2,3000,fs))
 
 Receptor().main()
