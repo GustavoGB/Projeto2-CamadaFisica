@@ -33,6 +33,7 @@ def senoide(freq,sample,rate):
     return (x,y)
 
 cutoff_hz = 3000
+fs = 44100
 
 #Le arquivos
 m1, rate1 = sf.read('audios-prontos/m1.wav')
@@ -61,8 +62,8 @@ t2, c2 = senoide(fC2,m2_filtered,rate2)
 
 # Fourrier c1 e c2 + plot
 c1f, Y1c = fourier(c1, rate1)
-plt.plot(c1f, np.abs(Y1c), label='c1')
 c2f, Y2c = fourier(c2, rate2)
+plt.plot(c1f, np.abs(Y1c), label='c1')
 plt.plot(c2f, np.abs(Y2c), label='c2')
 plt.title('Modulo Fourrier (c1 e c2)')
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
@@ -74,8 +75,8 @@ am2 = c2*m2_filtered
 
 # Fourrier AM Modulada + plot
 amf, Y1f = fourier(am, rate1)
-plt.plot(amf, np.abs(Y1f), label='AM')
 am2f, Y2f = fourier(am2, rate2)
+plt.plot(amf, np.abs(Y1f), label='AM')
 plt.plot(am2f, np.abs(Y2f), label='AM2')
 plt.title('Modulo Fourrier (AM e AM2)')
 plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
@@ -87,7 +88,6 @@ sd.wait()
 sd.play(am2,rate2)
 sd.wait()
 
-
 result = [x + y for x, y in zip_longest(am, am2, fillvalue=0)]
 
 # Fourrier da soma das AM Moduladas
@@ -98,3 +98,5 @@ plt.show()
 
 sd.play(result,rate1)
 sd.wait()
+print("Salvando arquivo como result.wav")
+sf.write('result.wav', result, fs)
