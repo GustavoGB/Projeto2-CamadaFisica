@@ -3,8 +3,10 @@ Projeto 5 Camada Física - 2017.2 // 2 parte.
 
 # Decoder de frequências
 
-Os resultados mostrados a seguir mostram os testes feitos a partir do aúdio de um celular e um computador. Eles mostram que, a partir das 2 bases de frequência específicas, é possível identificar qual é o tom, variando de 1 a 9.
+Os resultados mostrados a seguir mostram os testes feitos a partir do aúdio de um celular e um computador. Eles mostram que, a partir das 2 bases de frequência específicas, é possível identificar qual é o tom, variando de 0 a 9. Além disso, o tempo escolhido para a atualização do gráfico foi de 1 segundos. Enquanto o do áudio que foi gerado, 2 segundos.  Estes tempos foram os que mais ajudaram para determinar os parâmetros desejados.
 
+
+![](tons-funcionando-Fourier/tom0funcionando.png) 
 ![](tons-funcionando-Fourier/tom1funcionando.png)
 ![](tons-funcionando-Fourier/tom2funcionandoF.png)   
 ![](tons-funcionando-Fourier/tom3funcionandoF.png)   
@@ -14,7 +16,7 @@ Os resultados mostrados a seguir mostram os testes feitos a partir do aúdio de 
 ![](tons-funcionando-Fourier/tom7funcionando.png)   
 ![](tons-funcionando-Fourier/tom8funcionando.png)  
 ![](tons-funcionando-Fourier/tom9funcionando.png)
-![](tons-funcionando-Fourier/tom0funcionando.png) 
+
 
 
 
