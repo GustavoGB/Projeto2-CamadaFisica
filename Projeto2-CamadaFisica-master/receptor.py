@@ -1,53 +1,82 @@
-import wave
-import struct
-import math
-import numpy as np
-import soundfile as sf
 import sounddevice as sd
+import numpy as np
+import matplotlib.pyplot as plt
+import math
 from scipy import signal as sg
-from scipy.fftpack import fft, ifft
-import matplotlib
-from matplotlib import pyplot as plt
-from transmissor import Transmissor
+import soundfile as sf
 
-matplotlib.use("TkAgg")
-matplotlib.rcParams['agg.path.chunksize'] = 1000
 
-def Receptor(transmissor,fs,recordingDuration):
+def calcFFT(signal, fs):
+        from scipy.fftpack import fft
+        from scipy import signal as window
+
+        N  = len(signal)
+        T  = 1/fs
+        xf = np.linspace(0.0, 1.0/(2.0*T), N//2)
+        yf = fft(signal)
+        return(xf, yf[0:N//2])
+
+def LPF(signal, cutoff_hz, fs):
+        
+        # Filtro
     
-    transmissor = Transmissor()
-    fs = 44100 # khz
-    recordingDuration = 10 # segundos
+        # https://scipy.github.io/old-wiki/pages/Cookbook/FIRFilter.html
+        nyq_rate = fs/2
+        width = 5.0/nyq_rate
+        ripple_db = 60.0 #dB
+        N , beta = sg.kaiserord(ripple_db, width)
+        taps = sg.firwin(N, cutoff_hz/nyq_rate, window=('kaiser', beta))
+        
+        return(sg.lfilter(taps, 1.0, signal))
 
-def record(audio):
-    """Grava audio por tempo determinado no construtor e retorna o sinal """
-    audio = sd.rec(int(recordingDuration * fs),fs,channels=1)
-    sd.wait()
-    y = audio[:,0]
-    return y
 
-# Grava 10s de audio e plota o fourier
-audio = record()
-faudiox,faudioy = transmissor.getFFT(audio)
-# plt.plot(faudiox,faudioy)
-# plt.show()
+fs = 44100
+duration = 10
+cutoff_hz = 3000
 
-# Recria os carriers a partir do audio gravado
-C1x,C1y = transmissor.createCarrier(7000,audio)
-C2x,C2y = transmissor.createCarrier(14000,audio)
+#Ouvir audio
+audio = sd.rec(int(duration*fs), fs, channels=1)
+sd.wait()
+print("estou ouvindo")
 
-# Multiplica o audio gravado pelos carriers para demodular 
-dAM1 = audio * C1y
-dAM2 = audio * C2y
-fdAM1x,fdAM1y = transmissor.getFFT(dam1)
-fdAM2x,fdAM2y = transmissor.getFFT(dam2)
+y = audio[:,0]
 
-#Exibe o fourrier
-fig, (ax1,ax2) = plt.subplots(1,2,figsize=(15,5))
-ax1.plot(fdAM1x,fdAM1y)
-ax2.plot(fdAM2x,fdAM2y)
+# Fourrier audio recebido
+f, Y = calcFFT(y, fs)
+plt.plot(f, np.abs(Y), label='audio recebido')
 plt.show()
 
-# Faz um filtro passa baixa e reproduz os sons recuperados
-transmissor.play(transmissor.LPF(dAM1,3000,fs))
-transmissor.play(transmissor.LPF(dAM2,3000,fs))
+#Portadora:
+
+fC1 = 6000
+fC2 = 15000
+
+t = np.linspace(0, len(y)/fs, len(y))
+
+
+c1 = np.sin(2*math.pi*fC1*t)
+c2 = np.sin(2*math.pi*fC2*t)
+
+m1L = y*c1
+f1, Y1 = calcFFT(m1L, fs)
+plt.plot(f1, np.abs(Y1), label='audio recebido')
+
+m2L = y*c2
+f2, Y2 = calcFFT(m2L, fs)
+plt.plot(f2, np.abs(Y2), label='audio recebido')
+plt.show()
+
+m1 = LPF(m1L, cutoff_hz, fs)
+m2 = LPF(m2L, cutoff_hz, fs)
+
+# Fourrier (m1F e m2F)
+m1f, m1y = calcFFT(m1, fs)
+plt.plot(m1f, np.abs(m1y), label='m1')
+
+m2f, m2y = calcFFT(m2, fs)
+plt.plot(m2f, np.abs(m2y), label='m2')
+plt.xlim(0,cutoff_hz)
+plt.show()
+
+sf.write('m1r.wav', m1, fs)
+sf.write('m2r.wav', m2*2, fs)
