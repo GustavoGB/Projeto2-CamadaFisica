@@ -1,6 +1,57 @@
 # Proj-5-DTMF
 Projeto 5 Camada Física - 2017.2 // 2 parte. 
 
+# Itens entrega
+# Descrever a modulação/ demodulação
+
+Descrever as frequências das portadoras utilizadas
+
+Descrever as bandas ocupadas
+
+Inserir ao menos um gráfico exemplo de cada item de exibição do :
+transmissor
+receptor
+Comparar o resultado dos áudios transmitidos vs recebidos
+
+# Modulação/Demulação
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Decoder de frequências
 
 Os resultados mostrados a seguir mostram os testes feitos a partir do aúdio de um celular e um computador. Eles mostram que, a partir das 2 bases de frequência específicas, é possível identificar qual é o tom, variando de 0 a 9. Além disso, o tempo escolhido para a atualização do gráfico foi de 1 segundos. Enquanto o do áudio que foi gerado, 2 segundos.  Estes tempos foram os que mais ajudaram para determinar os parâmetros desejados.
